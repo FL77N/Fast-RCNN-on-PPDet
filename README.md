@@ -23,4 +23,4 @@ r50_fpn_1x_ms_training|**Tesla V-100 x 4**|**37.7**|12|COCO
 ```python tools/eval.py -c PaddleDetection/tools/train.py -c PaddleDetection/configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml```
 
 ## GETTING_STARTED
-[More detail about PPDet]https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.3/docs/tutorials/GETTING_STARTED_cn.md
+[More detail about PPDet](https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.3/docs/tutorials/GETTING_STARTED_cn.md)
