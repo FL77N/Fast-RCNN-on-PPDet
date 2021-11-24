@@ -8,7 +8,7 @@ r50_fpn_1x_ms_training|**Tesla V-100 x 4**|**37.7**|12|COCO
 
 
 ## Model and Pretrain Model
-* The multi scale training best model and train-log are saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/104021)
+* The multi scale training best model and train-log are saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/118142)
 * The PrecomputedProposals is saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/117919)
 
 ## Train
