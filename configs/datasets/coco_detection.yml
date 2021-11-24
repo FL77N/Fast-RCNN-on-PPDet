@@ -1,0 +1,46 @@
+metric: COCO
+num_classes: 80
+
+#TrainDataset:
+#  !COCODataSet
+#    image_dir: images # train2017
+#    anno_path: labels/instances_train2017.json
+#    dataset_dir: /home/l77/DeepLearning/dataset/coco/train/ # /root/paddlejob/workspace/datasets/train/
+#    data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd', "proposal_box"]
+#    pro_path: coco_2017_train_box_proposals.pkl
+#    pro_topk: 2000
+#
+#EvalDataset:
+#  !COCODataSet
+#    image_dir: images # val2017
+#    anno_path: labels/instances_val2017.json
+#    dataset_dir: /home/l77/DeepLearning/dataset/coco/val/ # /root/paddlejob/workspace/datasets/val/
+#    data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd', "proposal_box"]
+#    pro_path: coco_2017_val_box_proposals.pkl
+#    pro_topk: 1000
+#
+#TestDataset:
+#  !ImageFolder
+#    anno_path: /home/l77/DeepLearning/dataset/coco/val/labels/instances_val2017.json
+
+TrainDataset:
+  !COCODataSet
+    image_dir: train2017 # images
+    anno_path: labels/instances_train2017.json
+    dataset_dir: /root/paddlejob/workspace/datasets/train/ # /home/l77/DeepLearning/dataset/coco/train/
+    data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd', "proposal_box"]
+    pro_path: /root/paddlejob/workspace/train_data/datasets/data117919/coco_2017_train_box_proposals.pkl
+    pro_topk: 2000
+
+EvalDataset:
+  !COCODataSet
+    image_dir: val2017 # images
+    anno_path: labels/instances_val2017.json
+    dataset_dir: /root/paddlejob/workspace/datasets/val/ # /home/l77/DeepLearning/dataset/coco/val/
+    data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd', "proposal_box"]
+    pro_path: /root/paddlejob/workspace/train_data/datasets/data117919/coco_2017_val_box_proposals.pkl
+    pro_topk: 1000
+
+TestDataset:
+  !ImageFolder
+    anno_path: /root/paddlejob/workspace/datasets/val/labels/instances_val2017.json
