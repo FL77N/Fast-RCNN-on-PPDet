@@ -18,6 +18,7 @@
          * [5.5 测试流程](#55-测试流程)
          * [5.6 使用预训练模型预测](#56-使用预训练模型预测)
          * [5.7 TIPC 测试](#57-TIPC测试)
+       * [六、Citations](#六Citations)
 
 ## 一、简介
 
@@ -180,3 +181,13 @@ python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --inf
 
 
 [More detail about PPDet](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/docs/tutorials)
+
+## 六、Citations
+```
+@inproceedings{girshickICCV15fastrcnn,
+    Author = {Ross Girshick},
+    Title = {Fast R-CNN},
+    Booktitle = {International Conference on Computer Vision ({ICCV})},
+    Year = {2015}
+}
+```
