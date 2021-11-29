@@ -1,369 +1,181 @@
-# PSENet
-   * [PSENet](#resnet)
+# Fast-RCNN
+   * [Fast-RCNN](#resnet)
       * [一、简介](#一简介)
-      * [二、复现精度](#二复现精度)
-      * [三、数据集](#三数据集)
-      * [四、环境依赖](#四环境依赖)
-      * [五、快速开始](#五快速开始)
+      * [二、复现精度及数据集](#二复现精度)
+      * [三、环境依赖](#三环境依赖)
+      * [四、快速开始](#四快速开始)
          * [step1: 训练](#step1-训练)
          * [step2: 评估](#step2-评估)
          * [step3: 测试](#step3-测试)
-      * [六、代码结构与详细说明](#六代码结构与详细说明)
-         * [6.1 代码结构](#61-代码结构)
-         * [6.2 参数说明](#62-参数说明)
-         * [6.3 训练流程](#63-训练流程)
+      * [五、代码结构与详细说明](#五代码结构与详细说明)
+         * [5.1 代码结构](#51-代码结构)
+         * [5.2 参数说明](#52-参数说明)
+         * [5.3 训练流程](#53-训练流程)
             * [单机训练](#单机训练)
             * [多机训练](#多机训练)
             * [训练输出](#训练输出)
-         * [6.4 评估流程](#64-评估流程)
-         * [6.5 测试流程](#65-测试流程)
-         * [6.6 使用预训练模型预测](#66-使用预训练模型预测)
-      * [七、模型信息](#七模型信息)
+         * [5.4 评估流程](#54-评估流程)
+         * [5.5 测试流程](#55-测试流程)
+         * [5.6 使用预训练模型预测](#56-使用预训练模型预测)
 
 ## 一、简介
 
-本项目基于paddlepaddle框架复现PSENet，PSENet是一种新的实例分割网络，它有两方面的优势。 首先，psenet作为一种基于分割的方法，能够对任意形状的文本进行定位。其次，该模型提出了一种渐进的尺度扩展算法，该算法可以成功地识别相邻文本实例。
-
+本项目基于 PPDet 复现 Fast-RCNN，Fast-RCNN 是非常经典的目标检测算法，是 SPP 的改进，也是著名的两阶段网络 Faster-RCNN 的基础。
 
 **论文:**
-- [1] W. Wang, E. Xie, X. Li, W. Hou, T. Lu, G. Yu, and S. Shao. Shape robust text detection with progressive scale expansion network. In Proc. IEEE Conf. Comp. Vis. Patt. Recogn., pages 9336–9345, 2019.<br>
+- [R. Girshick, “Fast R-CNN,” in IEEE International Conference on Computer Vision (ICCV), 2015.](https://arxiv.org/abs/1504.08083)
 
 **参考项目：**
-- [https://github.com/whai362/PSENet](https://github.com/whai362/PSENet)
-
-**项目aistudio地址：**
-- notebook任务：[https://aistudio.baidu.com/aistudio/projectdetail/1945560](https://aistudio.baidu.com/aistudio/projectdetail/1945560)
-- 脚本任务：[https://aistudio.baidu.com/aistudio/clusterprojectdetail/1796445](https://aistudio.baidu.com/aistudio/clusterprojectdetail/1796445)
+- [Detectron2](https://github.com/facebookresearch/detectron2/blob/main/configs/COCO-Detection/fast_rcnn_R_50_FPN_1x.yaml)
 
 ## 二、复现精度
 
->该列指标在ICDAR2015的测试集测试
+>训练数据集为 [MS-COCO](https://cocodataset.org/#download) train2017 ，测试数据集为 val2017.
 
-train from scratch细节：
-
-
-| |epoch|opt|short_size|batch_size|dataset|memory|card|precision|recall|hmean|FPS|config|
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|pretrain_1|33|Adam|1024|16|ICDAR2017|32G|1|0.68290|0.68850|0.68569|5.0|[psenet_r50_ic17_1024.py](./config/psenet/psenst_r50_ic17_1024.py)|
-|pretrain_2|46|Adam|1024|16|ICDAR2013、ICDAR2017、COCO_TEXT|32G|4|0.69678|0.69812|0.69745|5.0|[psenet_r50_ic17_1024.py](./config/psenet/psenst_r50_ic17_1024.py)|
-|pretrain_3|68|Adam|1260|16|ICDAR2013、ICDAR2015、ICDAR2017、COCO_TEXT|32G|1|0.86526|0.80693|0.83508|2.0|[psenet_r50_ic17_1260.py](./config/psenet/psenet_r50_ic17_1260.py)|
-
-
-**ICDAR2015**
->该列指标在ICDAR2015的测试集测试
-
-训练细节：
-
-| |pretrain|epoch|opt|short_size|batch_size|dataset|memory|card|precision|recall|hmean|FPS|config|
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|finetune_1|pretrain_1|491|Adam|1024|16|ICDAR2015|32G|1|0.86463|0.80260|0.83246|5.0|[finetune1.py](./config/psenet/finetune1.py)|
-|finetune_2|pretrain_3|-|Adam|1260|16|ICDAR2015|32G|1|0.87024|0.81367|0.84101|2.0|[finetune2.py](./config/psenet/finetune2.py)|
-|finetune_3|finetune_2|401|SGD|1480|16|ICDAR2015|32G|1|<font color='red'>0.88060</font>|<font color='red'>0.82378</font>|<font color='red'>0.85124</font>|<font color='red'>1.8</font>|[finetune3.py](./config/psenet/finetune3.py)|
-
-**Total_text**
->该列指标在Total_Text的测试集测试
-
-训练细节：
-
-| |pretrain|epoch|opt|short_size|batch_size|dataset|memory|card|precision|recall|hmean|FPS|config|
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-|finetune_1|None|331|Adam|736|16|Total_Text|32G|1|0.84823|0.76007|0.80173|10.1|[psenet_r50_tt.py](./config/psenet/psenet_r50_tt.py)|
-|finetune_2|pretrain_2|290|Adam|736|16|Total_Text|32G|1|<font color='red'>0.88482</font>|<font color='red'>0.79002</font>|<font color='red'>0.83474</font>|<font color='red'>10.1</font>|[psenet_r50_tt_finetune2.py](./config/psenet/psenet_r50_tt_finetune2.py)|
+|Method|Environment|mAP|Epoch|batch_size|config|Dataset
+:--:|:--:|:--:|:--:|:--:|:--:|:--:
+r50_fpn_1x_ms_training|**Tesla V-100 x 4**|**37.7**|12|16|[fast_rcnn_r50_fpn_1x_coco.yml](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/configs/fast_rcnn)|COCO
 
 **模型下载**
-模型地址：[谷歌云盘](https://drive.google.com/drive/folders/1Xf5NsmxseygbDKYLBgSZcnvy4fRq6ZzY?usp=sharing)
+* The multi scale training best model and train-log are saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/118142)
+* The COCO PrecomputedProposals is saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/117919)
 
-模型对应：
-
-|name|path|config|
-| :---: | :---: | :---: |
-|pretrain_1|psenet_r50_ic17_1024_Adam/checkpoint_33_0|[psenet_r50_ic17_1024.py](./config/psenet/psenst_r50_ic17_1024.py)|
-|pretrain_2|psenet_r50_ic17_1024_Adam/checkpoint_46_0|[psenet_r50_ic17_1024.py](./config/psenet/psenst_r50_ic17_1024.py)|
-|pretrain_3|psenet_r50_ic17_1260_Adam/checkpoint_68_0|[psenet_r50_ic17_1260.py](./config/psenet/psenet_r50_ic17_1260.py)|
-|ic15_finetune_1|psenet_r50_ic15_1024_Adam/checkpoint_491_0|[finetune1.py](./config/psenet/finetune1.py)|
-|ic15_finetune_2|psenet_r50_ic15_1260_Adam/best|[finetune2.py](./config/psenet/finetune2.py)|
-|ic15_finetune_3|psenet_r50_ic15_1480_SGD/checkpoint_401_0|[finetune3.py](./config/psenet/finetune3.py)|
-|tt_finetune_1|psenet_r50_tt/checkpoint_331_0|[psenet_r50_tt.py](./config/psenet/psenet_r50_tt.py)|
-|tt_finetune_2|psenet_r50_tt/checkpoint_290_0|[psenet_r50_tt_finetune2.py](./config/psenet/psenet_r50_tt_finetune2.py)|
-
-## 三、数据集
-
-[ICDAR2015文本检测数据集](https://rrc.cvc.uab.es/?ch=4&com=downloads)。
-
-- 数据集大小：
-  - 训练集：1000张
-  - 测试集：500张
-- 数据格式：矩形框文本数据集
-
-[Total Text文本检测数据集](https://github.com/cs-chan/Total-Text-Dataset)。
-
-- 数据集大小：
-  - 训练集：1255张
-  - 测试集：300张
-- 数据格式：弯曲文本数据集
-
-## 四、环境依赖
+## 三、环境依赖
 
 - 硬件：GPU、CPU
 
 - 框架：
-  - PaddlePaddle >= 2.0.0
+  - PaddlePaddle >= 2.1.2 PaddleDetection >= 2.2.0
 
-## 五、快速开始
+## 四、快速开始
 
 ### step1: clone 
 
 ```bash
 # clone this repo
-git clone https://github.com/PaddlePaddle/Contrib.git
-cd PSENet
-export PYTHONPATH=./
+git clone https://github.com/FL77N/Fast-RCNN-on-PPDet.git
+cd Fast-RCNN-on-PPDet
 ```
 **安装依赖**
 ```bash
-sh init.sh
+pip install -r ./requirements.txt
 ```
-
-**编译pse**
-因为原作者提供了cpp的pse代码加速后处理的过程，所以需要编译，注意在aistudio上我们已经打包了编译好的，不需要执行这一步~
-```bash
-sh compile.sh
-```
-如果实在编译不成功可以使用提供的python版本的pse代码：
-[pypse.py](./models/pypse.py)
-
 
 ### step2: 训练
+* <font color=pink>single gpu</font> 
 ```bash
-python3 train.py ./config/psenet/psenet_r50_ic15_1024_Adam.py
+python ./tools/train.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --eval
 ```
-如果训练中断通过 --resume 参数恢复，例如使用上述命令在第44epoch第0iter中断则：
+* <font color=red>mutil gpu</font>
 ```bash
-python3 train.py ./config/psenet/psenet_r50_ic15_1024_Adam.py --resume checkpoint_44_0 # 不是断点参数的绝对路径请注意
-```
-如果你想分布式训练并使用多卡：
-```bash
-python3 -m paddle.distributed.launch --log_dir=./debug/ --gpus '0,1,2,3' train.py config/psenet/psenet_r50_ic17_1024_Adam.py
+python -m paddle.distributed.launch --gpus 0,1,2,3 ./tools/train.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --eval
 ```
 
 此时的输出为：
 ```
-Epoch: [1 | 600]
-(1/78) LR: 0.001000 | Batch: 6.458s | Total: 0min | ETA: 8min | Loss: 0.614 | Loss(text/kernel): 0.506/0.109 | IoU(text/kernel): 0.274/0.317 | Acc rec: 0.000
+ppdet.engine INFO: Epoch: [0] [ 0/63] learning_rate: 0.001000 loss_bbox_cls: 4.332087 loss_bbox_reg: 0.630385 loss: 4.962472 eta: 0:00:11 batch_cost: 0.1884 data_cost: 0.0004 ips: 10.6183 images/s
+...
 ```
-由于是目标检测任务，需要关注 ``loss`` 逐渐降低，``IOU`` 逐渐升高。
 
 ### step3: 测试
+* <font color=pink>eval</font>
 ```bash
-python3 eval.py ./config/psenet/psenet_r50_ic15_1024_Adam.py ./checkpoints/psenet_r50_ic15_1024_Adam/checkpoint_491_0.pdparams --report_speed
+python ./tools/eval.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml -o weights=best_model.pdparams
 ```
 此时的输出为：
 ```
-Testing 1/500
-backbone_time: 0.0266
-neck_time: 0.0197
-det_head_time: 0.0168
-det_pse_time: 0.4697
-FPS: 1.9
-Testing 2/500
-backbone_time: 0.0266
-neck_time: 0.0197
-det_head_time: 0.0171
-det_pse_time: 0.4694
-FPS: 1.9
-Testing 3/500
-backbone_time: 0.0266
-neck_time: 0.0196
-det_head_time: 0.0175
-det_pse_time: 0.4691
-FPS: 1.9
-```
-ICDAR2015评估
-```bash
-cd eval
-sh eval_ic15.sh
+ppdet.engine INFO: Eval iter: 0
+ppdet.metrics.metrics INFO: The bbox result is saved to bbox.json.
+loading annotations into memory...
+...
 ```
 
-total_text评估(注意tt数据集的评估需要使用python2，如果你在aistudio上使用我们的项目我们提供了打包的python可以直接执行详情见eval_tt.sh文件)
-```bash
-cd eval
-sh eval_tt.sh
-```
 ### 使用预训练模型预测
 
-将需要测试的文件放在参数input确定的目录下， 运行下面指令，输出图片保存在output参数确定的目录下
+configs/your dir/your config.yml 为预测模型的配置文件，通过 infer_img 指定需要预测的图片，通过 weights 加载训练好的模型。
 
 ```bash
-python3 predict.py ./config/psenet/psenet_r50_ic15_1024_Adam.py ./images ./out_img ./checkpoints/psenet_r50_ic15_1024_Adam/checkpoint_491_0.pdparams --report_speed
+python tools/infer.py -c configs/your dir/your config.yml --infer_img=your image.jpg -o weights=your best model.pdparams
 ```
 
-## 六、代码结构与详细说明
+## 五、代码结构与详细说明
 
-### 6.1 代码结构
+### 5.1 代码结构
 
 ```
 ├─config                          # 配置
 ├─dataset                         # 数据集加载
-├─eval                            # 评估脚本
-├─models                          # 模型
-├─results                         # 可视化结果
-├─utils                           # 工具代码
-│  compile.sh                     # 编译pse.cpp
-│  eval.py                        # 评估
-│  init.sh                        # 安装依赖
-│  predict.py                     # 预测
-│  README.md                      # 英文readme
-│  README_cn.md                   # 中文readme
+├─deploy                          # 模型部署
+├─output                          # infer 可视化输出
+├─ppdet                           # 模型
+├─test_tipc                       # tipc 脚本
+├─tools                           # 训练、推理、预测
+│  README.md                      # readme
 │  requirement.txt                # 依赖
-│  train.py                       # 训练
 ```
 
-### 6.2 参数说明
+### 5.2 参数说明
 
-可以在 `train.py` 中设置训练与评估相关参数，具体如下：
+[训练、推理、测试相关参数设置](https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/configs/fast_rcnn/_base_/fast_reader.yml)
 
-|  参数   | 默认值  | 说明 | 其他 |
-|  ----  |  ----  |  ----  |  ----  |
-| config| None, 必选| 配置文件路径 ||
-| --checkpoint| None, 可选 | 预训练模型参数路径 ||
-| --resume| None, 可选 | 恢复训练 |例如：--resume checkpoint_44_0 不是断点参数的绝对路径请注意|
+[优化器相关参数设置](https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/configs/fast_rcnn/_base_/optimizer_1x.yml)
 
+[数据集加载相关设置](https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/configs/datasets/coco_detection.yml)
 
-### 6.3 训练流程
+### 5.3 训练流程
 
 #### 单机训练
 ```bash
-python3 train.py $config_file
+python ./tools/train.py -c your_config_file
 ```
 
 #### 多机训练
 ```bash
-python3 -m paddle.distributed.launch --log_dir=./debug/ --gpus '0,1,2,3' train.py $config_file
-```
-
-此时，程序会将每个进程的输出log导入到`./debug`路径下：
-```
-.
-├── debug
-│   ├── workerlog.0
-│   ├── workerlog.1
-│   ├── workerlog.2
-│   └── workerlog.3
-├── README.md
-└── train.py
+python -m paddle.distributed.launch --gpus 0,1,2,3... ./tools/train.py -c your_config_file
 ```
 
 #### 训练输出
 执行训练开始后，将得到类似如下的输出。每一轮`batch`训练将会打印当前epoch、step以及loss值。
 ```text
-Epoch: [1 | 600]
-(1/78) LR: 0.001000 | Batch: 6.458s | Total: 0min | ETA: 8min | Loss: 0.614 | Loss(text/kernel): 0.506/0.109 | IoU(text/kernel): 0.274/0.317 | Acc rec: 0.000
+ppdet.engine INFO: Epoch: [0] [ 0/63] learning_rate: 0.001000 loss_bbox_cls: 4.332087 loss_bbox_reg: 0.630385 loss: 4.962472 eta: 0:00:11 batch_cost: 0.1884 data_cost: 0.0004 ips: 10.6183 images/s
+...
 ```
 
 ### 6.4 评估流程
 
 ```bash
-python3 eval.py $config_file $pdparam_file --report_speed
+python ./tools/eval.py -c your_config_file -o weights=your_best_model.pdparams
 ```
 
 此时的输出为：
 ```
-Testing 1/500
-backbone_time: 0.0266
-neck_time: 0.0197
-det_head_time: 0.0168
-det_pse_time: 0.4697
-FPS: 1.9
-Testing 2/500
-backbone_time: 0.0266
-neck_time: 0.0197
-det_head_time: 0.0171
-det_pse_time: 0.4694
-FPS: 1.9
-Testing 3/500
-backbone_time: 0.0266
-neck_time: 0.0196
-det_head_time: 0.0175
-det_pse_time: 0.4691
-FPS: 1.9
+ppdet.engine INFO: Eval iter: 0
+ppdet.metrics.metrics INFO: The bbox result is saved to bbox.json.
+loading annotations into memory...
 ```
 
 ### 6.5 测试流程
 
 ```bash
-python3 predict.py $config_file $input_dir $output_dir $pdparams_file --report_speed
+python tools/infer.py -c configs/your dir/your config.yml --infer_img=your image.jpg -o weights=your best model.pdparams
 ```
-此时的输出结果保存在`$output_dir`下面
+此时的输出结果保存在`$output`下面
 
 
-### 6.6 使用预训练模型预测
+### 5.6 使用预训练模型预测
 
 使用预训练模型预测的流程如下：
 
 **step1:** 下载预训练模型
-谷歌云盘：[https://drive.google.com/drive/folders/1Xf5NsmxseygbDKYLBgSZcnvy4fRq6ZzY?usp=sharing](https://drive.google.com/drive/folders/1Xf5NsmxseygbDKYLBgSZcnvy4fRq6ZzY?usp=sharing)
-模型与配置文件对应关系：
-
-|name|path|config|
-| :---: | :---: | :---: |
-|pretrain_1|psenet_r50_ic17_1024_Adam/checkpoint_33_0|[psenet_r50_ic17_1024.py](./config/psenet/psenst_r50_ic17_1024.py)|
-|pretrain_2|psenet_r50_ic17_1024_Adam/checkpoint_46_0|[psenet_r50_ic17_1024.py](./config/psenet/psenst_r50_ic17_1024.py)|
-|pretrain_3|psenet_r50_ic17_1260_Adam/checkpoint_68_0|[psenet_r50_ic17_1260.py](./config/psenet/psenet_r50_ic17_1260.py)|
-|ic15_finetune_1|psenet_r50_ic15_1024_Adam/checkpoint_491_0|[finetune1.py](./config/psenet/finetune1.py)|
-|ic15_finetune_2|psenet_r50_ic15_1260_Adam/best|[finetune2.py](./config/psenet/finetune2.py)|
-|ic15_finetune_3|psenet_r50_ic15_1480_SGD/checkpoint_401_0|[finetune3.py](./config/psenet/finetune3.py)|
-|tt_finetune_1|psenet_r50_tt/checkpoint_331_0|[psenet_r50_tt.py](./config/psenet/psenet_r50_tt.py)|
-|tt_finetune_2|psenet_r50_tt/checkpoint_290_0|[psenet_r50_tt_finetune2.py](./config/psenet/psenet_r50_tt_finetune2.py)|
+* The multi scale training best model and train-log are saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/118142)
 
 **step2:** 使用预训练模型完成预测
 ```bash
-python3 predict.py $config_file $input_dir $output_dir $pdparams_file --report_speed
+python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --infer_img=your image.jpg -o weights=best_model.pdparams
 ```
-## 七、模型信息
-
-关于模型的其他信息，可以参考下表：
-
-| 信息 | 说明 |
-| --- | --- |
-| 发布者 | 徐铭远、衣容颉|
-| 时间 | 2021.05 |
-| 框架版本 | Paddle 2.0.2 |
-| 应用场景 | 文本检测 |
-| 支持硬件 | GPU、CPU |
-| 下载链接 | [预训练模型](https://drive.google.com/drive/folders/1Xf5NsmxseygbDKYLBgSZcnvy4fRq6ZzY?usp=sharing)  |
-| 在线运行 | [botebook](https://aistudio.baidu.com/aistudio/projectdetail/1945560)、[脚本任务](https://aistudio.baidu.com/aistudio/clusterprojectdetail/1796445)|
-
-## Introduction
-Fast-RCNN implemented on PPDet
-
-## Results
-Method|Environment|mAP|Epoch|Dataset
-:--:|:--:|:--:|:--:|:--:
-r50_fpn_1x_ms_training|**Tesla V-100 x 4**|**37.7**|12|COCO
-
-[The Results of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/test_tipc/output)
-
-[The inference output of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/output)
-
-## Model and Pretrain Model
-* The multi scale training best model and train-log are saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/118142)
-* The PrecomputedProposals is saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/117919)
-
-## Train
-* <font color=pink>single gpu</font> 
-    
-    ```python PaddleDetection/tools/train.py -c PaddleDetection/configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --eval```
-* <font color=red>mutil gpu</font>
-   
-   ```python -m paddle.distributed.launch --gpus 0,1,2,3 PaddleDetection/tools/train.py -c PaddleDetection/configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --eval```
-
-## Eval
-
-```python tools/eval.py -c PaddleDetection/tools/train.py -c PaddleDetection/configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml```
-
-
-## GETTING_STARTED
+### TIPC 测试
 
 [The tutorials of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/test_tipc/docs)
+
 
 [More detail about PPDet](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/docs/tutorials)
