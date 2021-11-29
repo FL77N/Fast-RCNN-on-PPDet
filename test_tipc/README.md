@@ -7,9 +7,6 @@
 本文档提供了PaddleDetection中所有模型的飞桨训推一体认证 (Training and Inference Pipeline Certification(TIPC)) 信息和测试工具，
 方便用户查阅每种模型的训练推理部署打通情况，并可以进行一键测试。
 
-<div align="center">
-    <img src="docs/guide.png" width="1000">
-</div>
 
 ## 2. 汇总信息
 
