@@ -38,7 +38,7 @@ test_tipc/
 ├── prepare.sh                            # 完成test_*.sh运行所需要的数据和模型下载
 ├── README.md                             # 使用文档
 ├── test_train_inference_python.sh        # 测试python训练预测的主程序
-├── compare_results.py                # 用于对比log中的预测结果与results中的预存结果精度误差是否在限定范围内
+├── compare_results.py                    # 用于对比log中的预测结果与results中的预存结果精度误差是否在限定范围内
 
 ```
 
