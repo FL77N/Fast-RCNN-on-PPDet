@@ -17,6 +17,7 @@
          * [5.4 评估流程](#54-评估流程)
          * [5.5 测试流程](#55-测试流程)
          * [5.6 使用预训练模型预测](#56-使用预训练模型预测)
+         * [5.7 TIPC 测试](#57-TIPC 测试)
 
 ## 一、简介
 
@@ -173,7 +174,7 @@ python tools/infer.py -c configs/your dir/your config.yml --infer_img=your image
 ```bash
 python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --infer_img=your image.jpg -o weights=best_model.pdparams
 ```
-### TIPC 测试
+### 5.7 TIPC 测试
 
 [The tutorials of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/test_tipc/docs)
 
