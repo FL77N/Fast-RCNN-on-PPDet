@@ -16,7 +16,7 @@ Linux端基础训练预测功能测试的主程序为`test_train_inference_pytho
 
 | 模型类型 |device | batchsize | tensorrt | mkldnn | cpu多线程 |
 |  ----   |  ---- |   ----   |  :----:  |   :----:   |  :----:  |
-| 正常模型 | GPU | 1 | fp32/fp16 | - | - |
+| 正常模型 | GPU | 1 | TODO | - | - |
 | 正常模型 | CPU | 1 | - | fp32/fp16 | 支持 |
 |
 
