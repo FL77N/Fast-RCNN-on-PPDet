@@ -141,7 +141,7 @@ ppdet.engine INFO: Epoch: [0] [ 0/63] learning_rate: 0.001000 loss_bbox_cls: 4.3
 ...
 ```
 
-### 6.4 评估流程
+### 5.4 评估流程
 
 ```bash
 python ./tools/eval.py -c your_config_file -o weights=your_best_model.pdparams
@@ -154,7 +154,7 @@ ppdet.metrics.metrics INFO: The bbox result is saved to bbox.json.
 loading annotations into memory...
 ```
 
-### 6.5 测试流程
+### 5.5 测试流程
 
 ```bash
 python tools/infer.py -c configs/your dir/your config.yml --infer_img=your image.jpg -o weights=your best model.pdparams
