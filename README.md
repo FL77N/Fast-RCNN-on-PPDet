@@ -193,4 +193,4 @@ python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --inf
 }
 ```
 ## 七、TODO
-* TIPC 解决动态 shape bug 支持 TensorRT 加速
+* TIPC 解决动态 shape bug 支持 TensorRT 加速 --- Done
