@@ -19,6 +19,7 @@
          * [5.6 使用预训练模型预测](#56-使用预训练模型预测)
          * [5.7 TIPC 测试](#57-TIPC测试)
        * [六、Citations](#六Citations)
+       * [七、TODO](#七TODO)
 
 ## 一、简介
 
@@ -191,3 +192,5 @@ python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --inf
     Year = {2015}
 }
 ```
+## 七、TODO
+* TIPC 解决动态 shape bug 支持 TensorRT 加速
