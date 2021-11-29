@@ -8,7 +8,7 @@ r50_fpn_1x_ms_training|**Tesla V-100 x 4**|**37.7**|12|COCO
 
 [The Results of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/test_tipc/output)
 
-[The infererence output of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/output)
+[The inference output of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/output)
 
 ## Model and Pretrain Model
 * The multi scale training best model and train-log are saved to: [Baidu Aistudio](https://aistudio.baidu.com/aistudio/datasetdetail/118142)
