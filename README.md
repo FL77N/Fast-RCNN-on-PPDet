@@ -180,6 +180,7 @@ python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --inf
 
 [The tutorials of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/test_tipc/docs)
 
+[The results of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/test_tipc/output)
 
 [More detail about PPDet](https://github.com/PaddlePaddle/PaddleDetection/tree/develop/docs/tutorials)
 
