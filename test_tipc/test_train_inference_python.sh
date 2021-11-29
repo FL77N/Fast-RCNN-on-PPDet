@@ -136,14 +136,16 @@ infer_model_key=$(func_parser_key "${lines[44]}")
 image_dir_key=$(func_parser_key "${lines[45]}")
 infer_img_dir=$(func_parser_value "${lines[45]}")
 save_log_key=$(func_parser_key "${lines[46]}")
-benchmark_key=$(func_parser_key "${lines[48]}")
-benchmark_value=$(func_parser_value "${lines[48]}")
-infer_key1=$(func_parser_key "${lines[49]}")
-infer_value1=$(func_parser_value "${lines[49]}")
-infer_key2=$(func_parser_key "${lines[50]}")
-infer_value2=$(func_parser_value "${lines[50]}")
-infer_key3=$(func_parser_key "${lines[51]}")
-infer_value3=$(func_parser_value "${lines[51]}")
+benchmark_key=$(func_parser_key "${lines[47]}")
+benchmark_value=$(func_parser_value "${lines[47]}")
+infer_key1=$(func_parser_key "${lines[48]}")
+infer_value1=$(func_parser_value "${lines[48]}")
+infer_key2=$(func_parser_key "${lines[49]}")
+infer_value2=$(func_parser_value "${lines[49]}")
+infer_key3=$(func_parser_key "${lines[50]}")
+infer_value3=$(func_parser_value "${lines[50]}")
+infer_key4=$(func_parser_key "${lines[51]}")
+infer_value4=$(func_parser_value "${lines[51]}")
 
 LOG_PATH="./test_tipc/output"
 mkdir -p ${LOG_PATH}
@@ -204,7 +206,9 @@ function func_inference(){
                         set_infer_params1=$(func_set_params "${infer_key1}" "${infer_value1}")
                         set_infer_params2=$(func_set_params "${infer_key2}" "${infer_value2}")
                         set_infer_params3=$(func_set_params "${infer_key3}" "${infer_value3}")
-                        command="${_python} ${_script} ${device_key}=${device} ${set_tensorrt} ${set_precision} ${set_model_dir} ${set_batchsize} ${set_infer_data} ${set_benchmark} ${set_infer_params1} ${set_infer_params2} ${set_infer_params3} > ${_save_log_path} 2>&1 "
+                        set_infer_params4=$(func_set_params "${infer_key4}" "${infer_value4}")
+
+                        command="${_python} ${_script} ${device_key}=${device} ${set_tensorrt} ${set_precision} ${set_model_dir} ${set_batchsize} ${set_infer_data} ${set_benchmark} ${set_infer_params1} ${set_infer_params2} ${set_infer_params3} ${set_infer_params4} > ${_save_log_path} 2>&1 "
                         eval $command
                         last_status=${PIPESTATUS[0]}
                         eval "cat ${_save_log_path}"
@@ -369,6 +373,7 @@ else
                     save_infer_path="${save_log}"
                     set_export_weight=$(func_set_params "${export_weight}" "${save_log}/${train_model_name}")
                     set_save_infer_key=$(func_set_params "${save_infer_key}" "${save_infer_path}")
+
                     export_cmd="${python} ${run_export} ${set_export_weight} ${set_train_params1} ${set_save_infer_key}"
                     eval $export_cmd
                     status_check $? "${export_cmd}" "${status_log}"

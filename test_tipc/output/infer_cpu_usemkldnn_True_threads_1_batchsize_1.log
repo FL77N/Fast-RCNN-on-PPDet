@@ -6,6 +6,33 @@
 [37m---    Fused 0 ReshapeTransposeMatmulMkldnn patterns with reshape's xshape with transpose's xshape[0m
 [37m---    Fused 0 MatmulTransposeReshape patterns[0m
 [37m---    fused 0 batch norm with relu activation[0m
+2021-11-29 18:33:08,134 - benchmark_utils - INFO - Paddle Inference benchmark log will be saved to /home/l77/DeepLearning/model/detection/fast_rcnn/PaddleDetection/PaddleDetection/deploy/python/../../output/fast_rcnn_r50_fpn_1x_coco.log
+2021-11-29 18:33:08,134 - benchmark_utils - INFO - 
+
+2021-11-29 18:33:08,134 - benchmark_utils - INFO - ---------------------- Paddle info ----------------------
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] paddle_version: 2.1.2
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] paddle_commit: e04b66f2d272d68f77dcd94cb2956938475411d8
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] paddle_branch: HEAD
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] log_api_version: 1.0.3
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - ----------------------- Conf info -----------------------
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] runtime_device: cpu
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] ir_optim: True
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] enable_memory_optim: True
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] enable_tensorrt: False
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] enable_mkldnn: True
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] cpu_math_library_num_threads: 1
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - ----------------------- Model info ----------------------
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] model_name: fast_rcnn_r50_fpn_1x_coco
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] precision: fluid
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - ----------------------- Data info -----------------------
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] batch_size: 1
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] input_shape: dynamic_shape
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] data_num: 2
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - ----------------------- Perf info -----------------------
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] cpu_rss(MB): 1784, cpu_vms: 0, cpu_shared_mb: 0, cpu_dirty_mb: 0, cpu_util: 0%
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] gpu_rss(MB): 936, gpu_util: 0.0%, gpu_mem_util: 0%
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] total time spent(s): 41.5866
+2021-11-29 18:33:08,135 - benchmark_utils - INFO - [Det] preprocess_time(ms): 18399.6, inference_time(ms): 2393.7, postprocess_time(ms): 0.0
 -----------  Running Arguments -----------
 batch_size: 1
 camera_id: -1
@@ -14,11 +41,12 @@ device: cpu
 enable_mkldnn: True
 image_dir: ./test_tipc/demo/
 image_file: None
+min_subgraph_size: -1
 model_dir: ./test_tipc/output/norm_train_gpus_0_autocast_amp/fast_rcnn_r50_fpn_1x_coco
 output_dir: output
 reid_batch_size: 50
 reid_model_dir: None
-run_benchmark: False
+run_benchmark: True
 run_mode: fluid
 save_images: False
 save_mot_txts: False
@@ -40,13 +68,5 @@ Transform Order:
 --transform op: PadStride
 --------------------------------------------
 Found 2 inference images in total.
-class_id:49, confidence:0.5729, left_top:[473.13,498.57],right_bottom:[1334.47,1111.92]
-class_id:49, confidence:0.9699, left_top:[146.93,235.04],right_bottom:[906.74,944.51]
-class_id:49, confidence:0.9358, left_top:[811.58,606.66],right_bottom:[1267.57,1100.65]
-class_id:49, confidence:0.5204, left_top:[583.82,757.03],right_bottom:[851.28,1069.73]
-save result to: output/orange_71.jpg
-save result to: output/road554.png
------------------- Inference Time Info ----------------------
-total_time(ms): 42550.5, img_num: 2
-average latency time(ms): 21275.25, QPS: 0.047003
-preprocess_time(ms): 18728.00, inference_time(ms): 2547.30, postprocess_time(ms): 0.00
+Test iter 0
+Test iter 1
