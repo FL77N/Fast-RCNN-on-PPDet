@@ -31,7 +31,7 @@ test_tipc/
 │   ├── ...
 ├── docs/                                 # 相关说明文档目录
 │   ├── install.md                        # 环境准备及 TensorRT 安装
-|   ├── test_train_inference_python.md    # 依赖安装以及快速指引
+│   ├── test_train_inference_python.md    # 依赖安装以及快速指引
 ├── output/                               # 训推测中的 log 及模型保存
 │   ├── results.log
 │   ├── ...
