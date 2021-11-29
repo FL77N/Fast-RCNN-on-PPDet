@@ -1,9 +1,7 @@
 # Linux端基础训练预测功能测试
 
-Linux端基础训练预测功能测试的主程序为`test_train_inference_python.sh`，可以测试基于Python的模型训练、评估、推理等基本功能，包括裁剪、量化、蒸馏。
+Linux端基础训练预测功能测试的主程序为`test_train_inference_python.sh`，可以测试基于Python的模型训练、评估、推理等基本功能。
 
-- Mac端基础训练预测功能测试参考[链接](./mac_test_train_inference_python.md)
-- Windows端基础训练预测功能测试参考[链接](./win_test_train_inference_python.md)
 
 ## 1. 测试结论汇总
 
@@ -11,18 +9,16 @@ Linux端基础训练预测功能测试的主程序为`test_train_inference_pytho
 
 | 算法名称 | 模型名称 | 单机单卡 | 单机多卡 | 多机多卡 | 模型压缩（单机多卡） |
 |  :----  |   :----  |    :----  |  :----   |  :----   |  :----   |
-|  PPYOLO  | ppyolo_mbv3_large_coco | 正常训练 <br> 混合精度 | 正常训练 <br> 混合精度 | 正常训练 <br> 混合精度 | 正常训练：FPGM裁剪、PACT量化 <br> 离线量化（无需训练） |
-|  PPYOLO  | ppyolo_r50vd_dcn_1x_coco | 正常训练 <br> 混合精度 | 正常训练 <br> 混合精度 | 正常训练 <br> 混合精度 | 正常训练：FPGM裁剪、PACT量化 <br> 离线量化（无需训练） |
+|  Fast-RCNN  | fast_rcnn_r50_fpn_1x_coco | 正常训练 <br> 混合精度 | 正常训练 <br> 混合精度 | 正常训练 <br> 混合精度 | - |
 
 
-- 预测相关：基于训练是否使用量化，可以将训练产出的模型可以分为`正常模型`和`量化模型`，这两类模型对应的预测功能汇总如下，
+- 预测相关：
 
 | 模型类型 |device | batchsize | tensorrt | mkldnn | cpu多线程 |
 |  ----   |  ---- |   ----   |  :----:  |   :----:   |  :----:  |
-| 正常模型 | GPU | 1/8 | fp32/fp16 | - | - |
-| 正常模型 | CPU | 1/8 | - | fp32/fp16 | 支持 |
-| 量化模型 | GPU | 1/8 | int8 | - | - |
-| 量化模型 | CPU | 1/8 | - | int8 | 支持 |
+| 正常模型 | GPU | 1 | fp32/fp16 | - | - |
+| 正常模型 | CPU | 1 | - | fp32/fp16 | 支持 |
+|
 
 
 ## 2. 测试流程
@@ -44,11 +40,6 @@ Linux端基础训练预测功能测试的主程序为`test_train_inference_pytho
     python setup.py bdist_wheel
     pip install ./dist/auto_log-1.0.0-py3-none-any.whl
     ```
-- 安装PaddleSlim (可选)
-   ```
-   # 如果要测试量化、裁剪等功能，需要安装PaddleSlim
-   pip install paddleslim
-   ```
 
 
 ### 2.2 功能测试
@@ -84,7 +75,7 @@ bash test_tipc/test_train_inference_python.sh ./test_tipc/configs/fast_rcnn_r50_
 运行相应指令后，在`test_tipc/output`文件夹下自动会保存运行日志。如'lite_train_infer'模式下，会运行训练+推理的链条，因此，在`test_tipc/output`文件夹有以下文件：
 ```
 test_tipc/output/
-|- results_python.log    # 运行指令状态的日志
+|- results.log    # 运行指令状态的日志
 |- norm_train_gpus_0_autocast_null/  # GPU 0号卡上正常训练的训练日志和模型保存文件夹
 |- pact_train_gpus_0_autocast_null/  # GPU 0号卡上量化训练的训练日志和模型保存文件夹
 ......
@@ -93,7 +84,7 @@ test_tipc/output/
 ......
 ```
 
-其中`results_python.log`中包含了每条指令的运行状态，如果运行成功会输出：
+其中`results.log`中包含了每条指令的运行状态，如果运行成功会输出：
 ```
 Run successfully with command - python3.7 tools/train.py -c configs/yolov3/yolov3_darknet53_270e_coco.yml -o use_gpu=True save_dir=./test_tipc/output/norm_train_gpus_0_autocast_null epoch=1 pretrain_weights=https://paddledet.bj.bcebos.com/models/yolov3_darknet53_270e_coco.pdparams TrainReader.batch_size=2 filename=yolov3_darknet53_270e_coco  !
 Run successfully with command - python3.7 tools/eval.py -c configs/yolov3/yolov3_darknet53_270e_coco.yml -o weights=./test_tipc/output/norm_train_gpus_0_autocast_null/yolov3_darknet53_270e_coco/model_final.pdparams use_gpu=True  !
@@ -131,4 +122,4 @@ python3.7 test_tipc/compare_results.py --gt_file=./test_tipc/results/python_*.tx
 ## 3. 更多教程
 本文档为功能测试用，更丰富的训练预测使用教程请参考：  
 [模型训练](../../docs/tutorials/GETTING_STARTED_cn.md)  
-[PaddleDetection预测部署](../../deploy/README.md)
+[预测部署](../../deploy/README.md)
