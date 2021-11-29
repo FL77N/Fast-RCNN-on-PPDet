@@ -4,9 +4,9 @@
       * [二、复现精度及数据集](#二复现精度)
       * [三、环境依赖](#三环境依赖)
       * [四、快速开始](#四快速开始)
-         * [step1: 训练](#step1-训练)
-         * [step2: 评估](#step2-评估)
-         * [step3: 测试](#step3-测试)
+         * [step1: 训练](#step2-训练)
+         * [step2: 评估](#step3-评估)
+         * [step3: 测试](#step4-使用预训练模型预测)
       * [五、代码结构与详细说明](#五代码结构与详细说明)
          * [5.1 代码结构](#51-代码结构)
          * [5.2 参数说明](#52-参数说明)
@@ -78,7 +78,7 @@ ppdet.engine INFO: Epoch: [0] [ 0/63] learning_rate: 0.001000 loss_bbox_cls: 4.3
 ...
 ```
 
-### step3: 测试
+### step3: 评估
 * <font color=pink>eval</font>
 ```bash
 python ./tools/eval.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml -o weights=best_model.pdparams
@@ -91,7 +91,7 @@ loading annotations into memory...
 ...
 ```
 
-### 使用预训练模型预测
+### step4: 使用预训练模型预测
 
 configs/your dir/your config.yml 为预测模型的配置文件，通过 infer_img 指定需要预测的图片，通过 weights 加载训练好的模型。
 
@@ -174,7 +174,7 @@ python tools/infer.py -c configs/your dir/your config.yml --infer_img=your image
 ```bash
 python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --infer_img=your image.jpg -o weights=best_model.pdparams
 ```
-### 5.7 TIPC 测试
+### 5.7 TIPC测试
 
 [The tutorials of TIPC](https://github.com/FL77N/Fast-RCNN-on-PPDet/tree/main/test_tipc/docs)
 
