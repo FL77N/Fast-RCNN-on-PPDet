@@ -1,0 +1,45 @@
+[37m---    Fused 0 subgraphs into layer_norm op.[0m
+-----------  Running Arguments -----------
+batch_size: 1
+camera_id: -1
+cpu_threads: 1
+device: cpu
+enable_mkldnn: False
+image_dir: ./test_tipc/demo/
+image_file: None
+model_dir: ./test_tipc/output/norm_train_gpus_0_autocast_amp/fast_rcnn_r50_fpn_1x_coco
+output_dir: output
+reid_batch_size: 50
+reid_model_dir: None
+run_benchmark: False
+run_mode: fluid
+save_images: False
+save_mot_txts: False
+threshold: 0.5
+trt_calib_mode: False
+trt_max_shape: 1333
+trt_min_shape: 1
+trt_opt_shape: 640
+use_dark: True
+use_gpu: False
+video_file: None
+------------------------------------------
+-----------  Model Configuration -----------
+Model Arch: RCNN
+Transform Order: 
+--transform op: Resize
+--transform op: NormalizeImage
+--transform op: Permute
+--transform op: PadStride
+--------------------------------------------
+Found 2 inference images in total.
+save result to: output/road554.png
+class_id:49, confidence:0.5729, left_top:[473.13,498.57],right_bottom:[1334.47,1111.92]
+class_id:49, confidence:0.9699, left_top:[146.93,235.04],right_bottom:[906.74,944.51]
+class_id:49, confidence:0.9358, left_top:[811.58,606.66],right_bottom:[1267.57,1100.65]
+class_id:49, confidence:0.5204, left_top:[583.82,757.03],right_bottom:[851.28,1069.73]
+save result to: output/orange_71.jpg
+------------------ Inference Time Info ----------------------
+total_time(ms): 42943.600000000006, img_num: 2
+average latency time(ms): 21471.80, QPS: 0.046573
+preprocess_time(ms): 18449.10, inference_time(ms): 3022.70, postprocess_time(ms): 0.00
