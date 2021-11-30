@@ -22,7 +22,7 @@ Linux端基础训练预测功能测试的主程序为`test_train_inference_pytho
 
 ## 2. 测试流程
 
-运行环境配置请参考[文档](./install.md)的内容配置TIPC的运行环境。
+运行环境配置请参考[文档](./install.md)的内容配置 TIPC 的运行环境。
 
 ### 2.1 安装依赖
 - 安装PaddlePaddle >= 2.2
@@ -78,8 +78,8 @@ test_tipc/output/
 |- norm_train_gpus_0_autocast_null/  # GPU 0号卡上正常训练的训练日志和模型保存文件夹
 |- pact_train_gpus_0_autocast_null/  # GPU 0号卡上量化训练的训练日志和模型保存文件夹
 ......
-|- python_infer_cpu_usemkldnn_True_threads_1_precision_fluid_batchsize_1.log  # CPU上开启Mkldnn线程数设置为1，测试batch_size=1条件下的预测运行日志
-|- python_infer_gpu_precision_trt_fp16_batchsize_1.log # GPU上开启TensorRT，测试batch_size=1的半精度预测日志
+|- python_infer_cpu_usemkldnn_True_threads_1_precision_fluid_batchsize_1.log  # CPU 上开启 Mkldnn 线程数设置为 1，测试 batch_size=1 条件下的预测运行日志
+|- python_infer_gpu_precision_trt_fp16_batchsize_1.log # GPU上开启TensorRT，测试 batch_size=1 的半精度预测日志
 ......
 ```
 
