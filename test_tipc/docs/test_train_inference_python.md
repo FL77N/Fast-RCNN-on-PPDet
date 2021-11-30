@@ -19,7 +19,6 @@ Linux端基础训练预测功能测试的主程序为`test_train_inference_pytho
 | 正常模型 | GPU | 1 | fp32/fp16 | - | - |
 | 正常模型 | CPU | 1 | - | fp32/fp16 | 支持 |
 
-
 ## 2. 测试流程
 
 运行环境配置请参考[文档](./install.md)的内容配置 TIPC 的运行环境。
