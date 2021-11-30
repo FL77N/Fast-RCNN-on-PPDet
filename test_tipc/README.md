@@ -35,17 +35,17 @@ test_tipc/
 ├── output/                               # 训推测中的 log 及模型保存
 │   ├── results.log
 │   ├── ...
-├── prepare.sh                            # 完成test_*.sh运行所需要的数据和模型下载
+├── prepare.sh                            # 完成 test_*.sh 运行所需要的数据和模型下载
 ├── README.md                             # 使用文档
-├── test_train_inference_python.sh        # 测试python训练预测的主程序
-├── compare_results.py                    # 用于对比log中的预测结果与results中的预存结果精度误差是否在限定范围内
+├── test_train_inference_python.sh        # 测试 python 训练预测的主程序
+├── compare_results.py                    # 用于对比 log 中的预测结果与 results 中的预存结果精度误差是否在限定范围内
 
 ```
 
 ### 测试流程概述
 
 1. 运行prepare.sh准备测试所需数据和模型；
-2. 运行要测试的功能对应的测试脚本`test_*.sh`，产出log，由log可以看到不同配置是否运行成功；
+2. 运行要测试的功能对应的测试脚本`test_*.sh`，产出 log，由 log 可以看到不同配置是否运行成功；
 
 测试单项功能仅需两行命令，**如需测试不同模型/功能，替换配置文件即可**，命令格式如下：
 ```shell
@@ -68,5 +68,5 @@ bash test_tipc2/test_train_inference_python.sh ./test_tipc2/configs/fast_rcnn_r5
 关于本示例命令的更多信息可查看[基础训练预测使用文档](docs/test_train_inference_python.md)。
 
 ## 4. 开始测试
-各功能测试中涉及混合精度、裁剪、量化等训练相关，及mkldnn、Tensorrt等多种预测相关参数配置，请点击下方相应链接了解更多细节和使用教程：  
-- [test_train_inference_python 使用](docs/test_train_inference_python.md) ：测试基于Python的模型训练、评估、推理等基本功能，包括裁剪、量化、蒸馏。
+各功能测试中涉及混合精度、裁剪、量化等训练相关，及 mkldnn、Tensorrt 等多种预测相关参数配置，请点击下方相应链接了解更多细节和使用教程：  
+- [test_train_inference_python 使用](docs/test_train_inference_python.md) ：测试基于 Python 的模型训练、评估、推理等基本功能，包括裁剪、量化、蒸馏。
