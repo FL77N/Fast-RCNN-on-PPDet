@@ -85,14 +85,14 @@ test_tipc/output/
 
 其中`results.log`中包含了每条指令的运行状态，如果运行成功会输出：
 ```
-Run successfully with command - python3.7 tools/train.py -c configs/yolov3/yolov3_darknet53_270e_coco.yml -o use_gpu=True save_dir=./test_tipc/output/norm_train_gpus_0_autocast_null epoch=1 pretrain_weights=https://paddledet.bj.bcebos.com/models/yolov3_darknet53_270e_coco.pdparams TrainReader.batch_size=2 filename=yolov3_darknet53_270e_coco  !
-Run successfully with command - python3.7 tools/eval.py -c configs/yolov3/yolov3_darknet53_270e_coco.yml -o weights=./test_tipc/output/norm_train_gpus_0_autocast_null/yolov3_darknet53_270e_coco/model_final.pdparams use_gpu=True  !
+Run successfully with command - python3.7 tools/train.py -c configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml -o use_gpu=True save_dir=./test_tipc/output/norm_train_gpus_0_autocast_null epoch=1 pretrain_weights=https://paddledet.bj.bcebos.com/models/yolov3_darknet53_270e_coco.pdparams TrainReader.batch_size=2 filename=yolov3_darknet53_270e_coco  !
+Run successfully with command - python3.7 tools/eval.py -c configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml -o weights=./test_tipc/output/norm_train_gpus_0_autocast_null/fast_rcnn_r50_fpn_1x_coco/model_final.pdparams use_gpu=True  !
 ......
 ```
 如果运行失败，会输出：
 ```
-Run failed with command - python3.7 tools/train.py -c configs/yolov3/yolov3_darknet53_270e_coco.yml -o use_gpu=True save_dir=./test_tipc/output/norm_train_gpus_0_autocast_null epoch=1 pretrain_weights=https://paddledet.bj.bcebos.com/models/yolov3_darknet53_270e_coco.pdparams TrainReader.batch_size=2 filename=yolov3_darknet53_270e_coco  !
-Run failed with command - python3.7 tools/eval.py -c configs/yolov3/yolov3_darknet53_270e_coco.yml -o weights=./test_tipc/output/norm_train_gpus_0_autocast_null/yolov3_darknet53_270e_coco/model_final.pdparams use_gpu=True  !
+Run failed with command - python3.7 tools/train.py -c configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml -o use_gpu=True save_dir=./test_tipc/output/norm_train_gpus_0_autocast_null epoch=1 pretrain_weights=https://paddledet.bj.bcebos.com/models/yolov3_darknet53_270e_coco.pdparams TrainReader.batch_size=2 filename=yolov3_darknet53_270e_coco  !
+Run failed with command - python3.7 tools/eval.py -c configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml -o weights=./test_tipc/output/norm_train_gpus_0_autocast_null/fast_rcnn_r50_fpn_1x_coco/model_final.pdparams use_gpu=True  !
 ......
 ```
 可以很方便的根据`results_python.log`中的内容判定哪一个指令运行错误。
