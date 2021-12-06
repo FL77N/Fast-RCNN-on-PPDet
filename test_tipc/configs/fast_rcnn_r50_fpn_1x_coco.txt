@@ -49,5 +49,6 @@ inference:deploy/python/infer.py
 --trt_max_shape:1333
 --trt_min_shape:1
 --trt_opt_shape:640
---min_subgraph_size:200
+--min_subgraph_size:150
+best_model_path:/home/l77/DeepLearning/model/detection/fast_rcnn/PaddleDetection/PaddleDetection/model_final.pdparams
 null:null

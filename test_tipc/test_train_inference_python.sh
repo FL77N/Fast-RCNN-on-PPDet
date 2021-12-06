@@ -146,6 +146,7 @@ infer_key3=$(func_parser_key "${lines[50]}")
 infer_value3=$(func_parser_value "${lines[50]}")
 infer_key4=$(func_parser_key "${lines[51]}")
 infer_value4=$(func_parser_value "${lines[51]}")
+best_model_path=$(func_parser_value "${lines[52]}")
 
 LOG_PATH="./test_tipc/output"
 mkdir -p ${LOG_PATH}
@@ -232,46 +233,24 @@ if [ ${MODE} = "infer" ]; then
     fi
     # set CUDA_VISIBLE_DEVICES
     eval $env
-    export Count=0
     IFS="|"
-    infer_quant_flag=(${infer_is_quant})
+    run_export=${norm_export}
+    save_log="${LOG_PATH}/infer_output"
+    mkdir -p ${save_log}
+    save_infer_path="${save_log}"
+    set_export_weight=$(func_set_params "${export_weight}" "${best_model_path}")
+    set_save_infer_key=$(func_set_params "${save_infer_key}" "${save_infer_path}")
     set_train_params1=$(func_set_params "${train_param_key1}" "${train_param_value1}")
-    set_save_infer_key=$(func_set_params "${save_infer_key}" "${infer_model_dir}")
-    infer_model="${infer_model_dir}/${train_param_value1}"
-    for infer_model_name in ${infer_model_name_list[*]}; do
-        # run export
-        case ${Count} in
-            0) run_export=${norm_export} ;;
-            1) run_export=${pact_export} ;;
-            2) run_export=${fpgm_export} ;;
-            *) echo "Undefined run_export"; exit 1;
-        esac
-        set_export_weight=$(func_set_params "${export_weight}" "${infer_model_dir}/${infer_model_name}")
-        export_cmd="${python} ${run_export} ${set_export_weight} ${set_train_params1} ${set_save_infer_key}"
-        eval $export_cmd
-        status_export=$?
-        if [ ${status_export} = 0 ];then
-            status_check $status_export "${export_cmd}" "${status_log}"
-        fi
-        #run inference
-        is_quant=${infer_quant_flag[Count]}
-        func_inference "${python}" "${inference_py}" "${infer_model}" "${LOG_PATH}" "${infer_img_dir}" ${is_quant}
-        Count=$(($Count + 1))
-    done
 
-    # kl quant
-    if [ ${export_key1} = "kl_quant" ]; then
-        # run kl quant
-        kl_cmd="${python} ${export_value1} ${set_train_params1} ${set_save_infer_key}"
-        eval $kl_cmd
-        status_export=$?
-        if [ ${status_export} = 0 ];then
-            status_check $status_export "${kl_cmd}" "${status_log}"
-        fi
-        # run inference
-        is_quant=True
-        func_inference "${python}" "${inference_py}" "${infer_model}" "${LOG_PATH}" "${infer_img_dir}" ${is_quant}
-    fi
+    export_cmd="${python} ${run_export} ${set_export_weight} ${set_train_params1} ${set_save_infer_key}"
+    eval $export_cmd
+    status_check $? "${export_cmd}" "${status_log}"
+
+    #run inference
+    eval $env
+    flag_quant=False
+    save_infer_path="${save_log}/${train_param_value1}"
+    func_inference "${python}" "${inference_py}" "${save_infer_path}" "${LOG_PATH}" "${train_infer_img_dir}" "${flag_quant}"
 
 else
     IFS="|"

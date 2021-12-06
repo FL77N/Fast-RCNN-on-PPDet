@@ -1,31 +1,31 @@
 [37m---    Fused 0 subgraphs into layer_norm op.[0m
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - Paddle Inference benchmark log will be saved to /home/l77/DeepLearning/model/detection/fast_rcnn/PaddleDetection/PaddleDetection/deploy/python/../../output/fast_rcnn_r50_fpn_1x_coco.log
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - 
+2021-12-03 21:57:50,338 - benchmark_utils - INFO - Paddle Inference benchmark log will be saved to /home/l77/DeepLearning/model/detection/fast_rcnn/PaddleDetection/PaddleDetection/deploy/python/../../output/fast_rcnn_r50_fpn_1x_coco.log
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - 
 
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - ---------------------- Paddle info ----------------------
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] paddle_version: 2.1.2
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] paddle_commit: e04b66f2d272d68f77dcd94cb2956938475411d8
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] paddle_branch: HEAD
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] log_api_version: 1.0.3
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - ----------------------- Conf info -----------------------
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] runtime_device: cpu
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] ir_optim: True
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] enable_memory_optim: True
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] enable_tensorrt: False
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] enable_mkldnn: False
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] cpu_math_library_num_threads: 1
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - ----------------------- Model info ----------------------
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] model_name: fast_rcnn_r50_fpn_1x_coco
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] precision: fluid
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - ----------------------- Data info -----------------------
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] batch_size: 1
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] input_shape: dynamic_shape
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - [Det] data_num: 2
-2021-11-29 18:29:13,425 - benchmark_utils - INFO - ----------------------- Perf info -----------------------
-2021-11-29 18:29:13,426 - benchmark_utils - INFO - [Det] cpu_rss(MB): 1859, cpu_vms: 0, cpu_shared_mb: 0, cpu_dirty_mb: 0, cpu_util: 0%
-2021-11-29 18:29:13,426 - benchmark_utils - INFO - [Det] gpu_rss(MB): 936, gpu_util: 0.5%, gpu_mem_util: 0%
-2021-11-29 18:29:13,426 - benchmark_utils - INFO - [Det] total time spent(s): 42.995
-2021-11-29 18:29:13,426 - benchmark_utils - INFO - [Det] preprocess_time(ms): 18562.7, inference_time(ms): 2934.8, postprocess_time(ms): 0.0
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - ---------------------- Paddle info ----------------------
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] paddle_version: 2.1.2
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] paddle_commit: e04b66f2d272d68f77dcd94cb2956938475411d8
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] paddle_branch: HEAD
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] log_api_version: 1.0.3
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - ----------------------- Conf info -----------------------
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] runtime_device: cpu
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] ir_optim: True
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] enable_memory_optim: True
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] enable_tensorrt: False
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] enable_mkldnn: False
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] cpu_math_library_num_threads: 1
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - ----------------------- Model info ----------------------
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] model_name: fast_rcnn_r50_fpn_1x_coco
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] precision: fluid
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - ----------------------- Data info -----------------------
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] batch_size: 1
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] input_shape: dynamic_shape
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] data_num: 2
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - ----------------------- Perf info -----------------------
+2021-12-03 21:57:50,339 - benchmark_utils - INFO - [Det] cpu_rss(MB): 1683, cpu_vms: 0, cpu_shared_mb: 0, cpu_dirty_mb: 0, cpu_util: 0%
+2021-12-03 21:57:50,340 - benchmark_utils - INFO - [Det] gpu_rss(MB): 1127, gpu_util: 6.0%, gpu_mem_util: 0%
+2021-12-03 21:57:50,340 - benchmark_utils - INFO - [Det] total time spent(s): 46.0271
+2021-12-03 21:57:50,340 - benchmark_utils - INFO - [Det] preprocess_time(ms): 19933.7, inference_time(ms): 3079.9, postprocess_time(ms): 0.0
 -----------  Running Arguments -----------
 batch_size: 1
 camera_id: -1
