@@ -58,7 +58,7 @@ bash test_tipc/prepare.sh  configs/[model_name]/[params_file_name]  [Mode]
 bash test_tipc/test_train_inference_python.sh configs/[model_name]/[params_file_name]  [Mode]
 ```
 
-例如，测试基本训练预测功能的`lite_train_lite_infer`模式，运行：
+例如，测试基本训练预测功能的`lite_train_infer`模式，运行：
 ```shell
 # 准备数据
 bash test_tipc2/prepare.sh ./test_tipc2/configs/fast_rcnn_r50_fpn_1x_coco.txt 'lite_train_infer'
