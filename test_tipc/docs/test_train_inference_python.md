@@ -49,13 +49,13 @@ Linux端基础训练预测功能测试的主程序为`test_train_inference_pytho
 - 模式1：lite_train_infer，使用少量数据训练，用于快速验证训练到预测的走通流程，不验证精度和速度；
 ```shell
 bash test_tipc/prepare.sh ./test_tipc/configs/fast_rcnn_r50_fpn_1x_coco.txt 'lite_train_infer'
-bash test_tipc2/test_train_inference_python.sh ./test_tipc/configs/fast_rcnn_r50_fpn_1x_coco.txt 'lite_train_infer'
+bash test_tipc/test_train_inference_python.sh ./test_tipc/configs/fast_rcnn_r50_fpn_1x_coco.txt 'lite_train_infer'
 ```
 
 - 模式2：whole_infer，使用少量数据训练，一定量数据预测，用于验证训练后的模型执行预测，预测速度是否合理；
 ```shell
 bash test_tipc/prepare.sh ./test_tipc/configs/fast_rcnn_r50_fpn_1x_coco.txt  'whole_infer'
-bash test_tipc2/test_train_inference_python.sh ./test_tipc/configs/fast_rcnn_r50_fpn_1x_coco.txt 'whole_infer'
+bash test_tipc/test_train_inference_python.sh ./test_tipc/configs/fast_rcnn_r50_fpn_1x_coco.txt 'whole_infer'
 ```
 
 - 模式3：whole_train_infer，CE： 全量数据训练，全量数据预测，验证模型训练精度，预测精度，预测速度；
