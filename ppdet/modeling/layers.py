@@ -379,7 +379,10 @@ class RCNNBox(object):
     def __call__(self, bbox_head_out, rois, im_shape, scale_factor):
         bbox_pred = bbox_head_out[0]
         cls_prob = bbox_head_out[1]
-        roi = rois[0]
+        if isinstance(rois[0], list):
+            roi = paddle.concat(rois[0]) if len(rois[0]) > 1 else rois[0][0]
+        else:
+            roi = paddle.reshape(rois[0], [-1, 4])
         rois_num = rois[1]
 
         origin_shape = paddle.floor(im_shape / scale_factor + 0.5)
@@ -403,7 +406,11 @@ class RCNNBox(object):
 
         # bbox_pred.shape: [N, C*4]
         # C=num_classes in faster/mask rcnn(bbox_head), C=1 in cascade rcnn(cascade_head)
-        bbox = paddle.concat(roi)
+        if isinstance(roi, list):
+            bbox = paddle.concat(roi)
+        else:
+            bbox = roi
+
         if bbox.shape[0] == 0:
             bbox = paddle.zeros([0, bbox_pred.shape[1]], dtype='float32')
         else:

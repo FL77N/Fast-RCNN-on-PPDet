@@ -561,7 +561,11 @@ class Trainer(object):
             "im_shape": InputSpec(
                 shape=[None, 2], name='im_shape'),
             "scale_factor": InputSpec(
-                shape=[None, 2], name='scale_factor')
+                shape=[None, 2], name='scale_factor'),
+            "proposal_box": InputSpec(
+                shape=[None, 4], name='proposal_box'),
+            "rois_num": InputSpec(
+                shape=[None], name='rois_num')
         }]
         if self.cfg.architecture == 'DeepSORT':
             input_spec[0].update({

@@ -227,7 +227,6 @@ def get_current_memory_mb():
     gpu_mem = 0
     gpu_percent = 0
     gpus = GPUtil.getGPUs()
-
     if gpu_id is not None and len(gpus) > 0:
         gpu_percent = gpus[gpu_id].load
         pynvml.nvmlInit()

@@ -74,7 +74,10 @@ class RoIAlign(object):
         return {'spatial_scale': [1. / i.stride for i in input_shape]}
 
     def __call__(self, feats, roi, rois_num):
-        roi = paddle.concat(roi) if len(roi) > 1 else roi[0]
+        if isinstance(roi, list):
+            roi = paddle.concat(roi) if len(roi) > 1 else roi[0]
+        else:
+            roi = paddle.reshape(roi, [-1, 4])
         if len(feats) == 1:
             rois_feat = ops.roi_align(
                 feats[self.start_level],

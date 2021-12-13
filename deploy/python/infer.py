@@ -429,7 +429,7 @@ def load_predictor(model_dir,
                     "The current environment does not support `mkldnn`, so disable mkldnn."
                 )
                 pass
-
+    # | trt_fp32 | trt_fp16
     precision_map = {
         'trt_int8': Config.Precision.Int8,
         'trt_fp32': Config.Precision.Float32,

@@ -116,6 +116,7 @@ def _dump_infer_config(config, path, image_shape, model):
             infer_cfg['min_subgraph_size'] = min_subgraph_size
             arch_state = True
             break
+
     if not arch_state:
         logger.error(
             'Architecture: {} is not supported for exporting model now.\n'.

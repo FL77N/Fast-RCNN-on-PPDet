@@ -67,8 +67,23 @@ class FastRCNN(BaseArch):
         body_feats = self.backbone(self.inputs)
         if self.neck is not None:
             body_feats = self.neck(body_feats)
-        rois = [paddle.to_tensor(pro_box).astype("float32") for pro_box in self.inputs["proposal_box"]]
-        rois_num = paddle.to_tensor([pro_box.shape[0] for pro_box in self.inputs["proposal_box"]]).astype("int32")
+
+        im_shape = self.inputs['im_shape']
+        scale_factor = self.inputs['scale_factor']
+
+        if "proposal_box" in self.inputs:
+            if isinstance(self.inputs["proposal_box"], list):
+                rois = [paddle.to_tensor(pro_box).astype("float32") for pro_box in self.inputs["proposal_box"]]
+                rois_num = paddle.to_tensor([pro_box.shape[0] for pro_box in self.inputs["proposal_box"]]).astype("int32")
+            else:
+                rois = self.inputs["proposal_box"]
+                if "rois_num" in self.inputs:
+                    rois_num = self.inputs["rois_num"]  
+                else:
+                    rois_num = paddle.to_tensor([pro_box.shape[0] for pro_box in self.inputs["proposal_box"]]).astype("int32")
+        else:
+            rois = [paddle.zeros([1000, 4]).astype("float32") for i in range(body_feats[0].shape[0])]
+            rois_num = paddle.to_tensor([pro_box.shape[0] for pro_box in rois]).astype("int32")
 
         if self.training:
             bbox_loss, _ = self.bbox_head(body_feats, rois, rois_num,
@@ -76,8 +91,6 @@ class FastRCNN(BaseArch):
             return bbox_loss
         else:
             preds, _ = self.bbox_head(body_feats, rois, rois_num, None)
-            im_shape = self.inputs['im_shape']
-            scale_factor = self.inputs['scale_factor']
             bbox, bbox_num = self.bbox_post_process(preds, (rois, rois_num),
                                                     im_shape, scale_factor)
 
