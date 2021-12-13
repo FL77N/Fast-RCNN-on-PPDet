@@ -17,7 +17,7 @@ EvalDataset:
     anno_path: labels/instances_val2017.json
     dataset_dir: ./data/coco/val/
     data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd', "proposal_box"]
-    pro_path: ./data/coco/val/coco_2017_val_box_proposals.pkl
+    pro_path: ./data/coco_2017_val_box_proposals.pkl
     pro_topk: 1000
 
 TestDataset:
