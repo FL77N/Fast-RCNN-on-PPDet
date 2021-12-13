@@ -7,7 +7,7 @@ auto_cast:null|amp
 epoch:lite_train_infer=1|whole_train_infer=270
 save_dir:./output/
 TrainReader.batch_size:lite_train_infer=2|whole_train_infer=8
-pretrain_weights:/home/l77/DeepLearning/model/detection/fast_rcnn/PaddleDetection/PaddleDetection/model_final.pdparams
+pretrain_weights:./test_tipc/weights/pretrain.pdparams
 train_model_name:fast_rcnn_r50_fpn_1x_coco/model_final.pdparams
 train_infer_img_dir:./test_tipc/demo/
 filename:fast_rcnn_r50_fpn_1x_coco
@@ -50,5 +50,5 @@ inference:deploy/python/infer.py
 --trt_min_shape:1
 --trt_opt_shape:640
 --min_subgraph_size:150
-best_model_path:/home/l77/DeepLearning/model/detection/fast_rcnn/PaddleDetection/PaddleDetection/model_final.pdparams
+best_model_path:./test_tipc/weights/model_final.pdparams
 null:null
