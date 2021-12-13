@@ -57,6 +57,7 @@ def parse_args():
         default=None,
         type=str,
         help="Configuration file of slim method.")
+
     args = parser.parse_args()
     return args
 
