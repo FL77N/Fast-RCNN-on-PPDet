@@ -35,6 +35,9 @@ test_tipc/
 ├── output/                               # 训推测中的 log 及模型保存
 │   ├── results.log
 │   ├── ...
+├── weights/                              # 预训练和最优权重
+│   ├── xxx.pdparams
+│   ├── ...
 ├── prepare.sh                            # 完成 test_*.sh 运行所需要的数据和模型下载
 ├── README.md                             # 使用文档
 ├── test_train_inference_python.sh        # 测试 python 训练预测的主程序
@@ -64,7 +67,7 @@ bash test_tipc/test_train_inference_python.sh configs/[model_name]/[params_file_
 bash test_tipc2/prepare.sh ./test_tipc2/configs/fast_rcnn_r50_fpn_1x_coco.txt 'lite_train_infer'
 # 运行测试
 bash test_tipc2/test_train_inference_python.sh ./test_tipc2/configs/fast_rcnn_r50_fpn_1x_coco.txt 'lite_train_infer'
-```  
+```
 关于本示例命令的更多信息可查看[基础训练预测使用文档](docs/test_train_inference_python.md)。
 
 ## 4. 开始测试
