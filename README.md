@@ -120,7 +120,7 @@ python tools/infer.py -c configs/your dir/your config.yml --infer_img=your image
 
 ### 5.2 参数说明
 
-[训练、推理、测试相关参数设置](https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/configs/fast_rcnn/_base_/fast_reader.yml)
+[训练、推理、测试相关参数设置](https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/configs/fast_rcnn/_base_/fast_rcnn_reader.yml)
 
 [优化器相关参数设置](https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/configs/fast_rcnn/_base_/optimizer_1x.yml)
 
