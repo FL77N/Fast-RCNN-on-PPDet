@@ -163,7 +163,7 @@ loading annotations into memory...
 ```bash
 python tools/infer.py -c configs/your dir/your config.yml --infer_img=your image.jpg -o weights=your best model.pdparams
 ```
-此时的输出结果保存在`$output`下面
+此时的输出结果保存在`output`下面
 
 
 ### 5.6 使用预训练模型预测
