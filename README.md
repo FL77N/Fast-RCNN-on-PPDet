@@ -187,7 +187,7 @@ python tools/infer.py -c ./configs/fast_rcnn/fast_rcnn_r50_fpn_1x_coco.yml --inf
 
 推理效果如下：
 
-<center><img src="https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/output/orange_71.jpg" height=50% width=50%></center>
+<center><img src="https://github.com/FL77N/Fast-RCNN-on-PPDet/blob/main/output/orange_71.jpg" height=30% width=30%></center>
 
 ## 六、Citations
 ```
